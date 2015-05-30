@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
 	int mb;
 	int start = clock();
 	char input[50];
+	int numfwrite;
 	int numfread;
 	if (argc != 2) {
 		printf("%s port\n", argv[0]);
@@ -87,13 +88,10 @@ int main(int argc, char *argv[])
 			}
 			fseek(stream, 0, SEEK_SET);
 			currentSize = 0;
-
 			while (1)
 			{
 				nread = recvfrom(sockid, msg, 100, 0, (struct sockaddr *) &client_addr, (socklen_t*)&addrlen);
 
-				currentSize += nread;
-				percent = ((double)currentSize / fileSize) * 100;
 				if (nread<0)
 				{
 					perror("receive fail");
@@ -101,15 +99,7 @@ int main(int argc, char *argv[])
 				}
 
 
-				if (clock() - start > 1000)// approximately one second.
-				{
-					//second++;
-					printf("Transfer status : recv[%s]", fileName);
-					printf("[%.2lf%%, %.2lfMB/%.2lfMB]\n", percent, (double)currentSize / (1024 * 1024), (double)fileSize / (1024 * 1024));
-					start = (int)clock();
-				}
 
-				//second++; 
 
 				if (!strncmp(msg, "end", 12))
 				{
@@ -118,12 +108,31 @@ int main(int argc, char *argv[])
 				}
 				else{
 					//fputs(msg, stream); //file save
-					fwrite(msg, 1, nread, stream);
+					numfwrite = fwrite(msg, 1, nread, stream);
 				}
+				currentSize += numfwrite;
+				percent = ((double)currentSize / fileSize) * 100;
+
+
+				if (clock() - start > 1000)// approximately one second.
+				{
+					//second++;
+					printf("Transfer status : recv[%s]", fileName);
+					printf("[%.2lf%%, %.2lfMB/%.2lfMB]\n", percent, (double)currentSize / (1024 * 1024), (double)fileSize / (1024 * 1024));
+
+
+					start = (int)clock();
+				}
+
+				//second++; 
+
 			}
 			// get file//////////////
+
+
 			printf("Transfer status : recv[%s]", fileName);
 			printf("[%.2lf%%, %.2lfMB/%.2lfMB]\n", percent, (double)currentSize / (1024 * 1024), (double)fileSize / (1024 * 1024));
+
 
 
 		} //  end of strcmp
@@ -198,4 +207,5 @@ int main(int argc, char *argv[])
 
 
 }
+
 
