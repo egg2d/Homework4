@@ -150,7 +150,7 @@ int main(int argc, char *argv[])
 
 
 
-			printf("%s size: (%.2lfMB) is being sent!\n", fileName, fileSize / 1000000.0);
+			printf("%s size: (%.2lfMB) is being sent!\n", fileName, fileSize / (1024 * 1024.0));
 
 			// file transfer
 			while (!feof(stream))
@@ -230,6 +230,12 @@ int main(int argc, char *argv[])
 				printf("error");
 				exit(1);
 			}
+			// file size receive
+			nread = recvfrom(sockid, msg, 12, 0, (struct sockaddr *) &server_addr, (socklen_t*)&addrlen);
+			printf("Server: return code from read is %d\n", nread);
+			if (nread >0) { printf("Server: message is: %.11s\n", msg); }
+			fileSize = atoi(msg);
+			// file size receive
 
 
 			// 3) file receive
@@ -237,7 +243,7 @@ int main(int argc, char *argv[])
 			currentSize = 0;
 
 
-			printf("%s size: (%.2lfMB) is being received!\n", fileName, fileSize / 1000000.0);
+			printf("%s size: (%.2lfMB) is being received!\n", fileName, fileSize / (1024 * 1024.0));
 			while (1)
 			{
 				msg[0] = '\0';
@@ -299,8 +305,8 @@ int main(int argc, char *argv[])
 					break;
 				}
 				else{
-					fputs(msg, stream2); //file save
-
+					//	fputs(msg, stream2); //file save
+					fwrite(msg, 1, nread, stream2);
 				}
 
 			}
