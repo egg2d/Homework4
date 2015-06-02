@@ -230,12 +230,9 @@ int main(int argc, char *argv[])
 				printf("error");
 				exit(1);
 			}
-			// file size receive
+			// file size receive 		
 			nread = recvfrom(sockid, msg, 12, 0, (struct sockaddr *) &server_addr, (socklen_t*)&addrlen);
-			printf("Server: return code from read is %d\n", nread);
-			if (nread >0) { printf("Server: message is: %.11s\n", msg); }
-			fileSize = atoi(msg);
-			// file size receive
+			printf("Server: return code from read is %d\n", nread); 			if (nread >0) { printf("Server: message is: %.11s\n", msg); } 			fileSize = atoi(msg); 			// file size receive
 
 
 			// 3) file receive

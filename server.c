@@ -22,7 +22,8 @@ int main(int argc, char *argv[])
 	int currentSize = 0;
 	int second = 0;
 	int mb;
-	int start = clock();
+	int start = 0;
+	int end = 0;
 	char input[50];
 	int numfwrite;
 	int numfread;
@@ -88,8 +89,11 @@ int main(int argc, char *argv[])
 			}
 			fseek(stream, 0, SEEK_SET);
 			currentSize = 0;
+
 			while (1)
 			{
+				start = clock();
+
 				nread = recvfrom(sockid, msg, 100, 0, (struct sockaddr *) &client_addr, (socklen_t*)&addrlen);
 
 				if (nread<0)
@@ -97,8 +101,6 @@ int main(int argc, char *argv[])
 					perror("receive fail");
 					exit(1);
 				}
-
-
 
 
 				if (!strncmp(msg, "end", 12))
@@ -112,24 +114,19 @@ int main(int argc, char *argv[])
 				}
 				currentSize += numfwrite;
 				percent = ((double)currentSize / fileSize) * 100;
-
-
-				if (clock() - start > 1000)// approximately one second.
+				if (end >= 240000)// approximately one second.
 				{
-					//second++;
+					end = 0;
 					printf("Transfer status : recv[%s]", fileName);
 					printf("[%.2lf%%, %.2lfMB/%.2lfMB]\n", percent, (double)currentSize / (1024 * 1024), (double)fileSize / (1024 * 1024));
 
-
-					start = (int)clock();
 				}
-
+				end += clock() - start;
 				//second++; 
 
 			}
 			// get file//////////////
-
-
+			start = 0, end = 0;
 			printf("Transfer status : recv[%s]", fileName);
 			printf("[%.2lf%%, %.2lfMB/%.2lfMB]\n", percent, (double)currentSize / (1024 * 1024), (double)fileSize / (1024 * 1024));
 
@@ -158,8 +155,7 @@ int main(int argc, char *argv[])
 			fseek(stream, 0, SEEK_SET);
 			// filesize send
 			sprintf(msg, "%d", fileSize);
-			retcode = sendto(sockid, msg, 12, 0, (struct sockaddr *) &client_addr, sizeof(client_addr));
-			if (retcode <= -1)
+			retcode = sendto(sockid, msg, 12, 0, (struct sockaddr *) &client_addr, sizeof(client_addr)); 			if (retcode <= -1)
 			{
 				printf("client: sendto failed: %d\n", errno); exit(0);
 			} // filesize send
@@ -167,9 +163,10 @@ int main(int argc, char *argv[])
 			// 3) file reading
 			// file transfer
 			currentSize = 0;
-			second = 0;
 			while (!feof(stream))
 			{
+				start = clock();
+
 				msg[0] = '\0';
 				//fgets(msg,sizeof(msg), stream);  // read buffer
 				numfread = fread(msg, 1, 100, stream);
@@ -177,20 +174,21 @@ int main(int argc, char *argv[])
 
 				currentSize += retcode;
 				percent = ((double)currentSize / fileSize) * 100;
-
-				if (clock() - start > 1000)// approximately one second.
+				if (end >= 240000)// approximately one second.
 				{
-					//second++;
+					end = 0;
 					printf("Transfer status : send[%s]", fileName);
 					printf("[%.2lf%%, %.2lfMB/%.2lfMB]\n", percent, (double)currentSize / (1024 * 1024), (double)fileSize / (1024 * 1024));
-					start = (int)clock();
+
 				}
+				end += (clock() - start);
+
 			}
 			fclose(stream);
 			// end file
 			strcpy(msg, "end");
 			retcode = sendto(sockid, msg, 100, 0, (struct sockaddr *) &client_addr, sizeof(client_addr));
-
+			start = 0, end = 0;
 			printf("Transfer status : send[%s]", fileName);
 			printf("[%.2lf%%, %.2lfMB/%.2lfMB]\n", percent, (double)currentSize / (1024 * 1024), (double)fileSize / (1024 * 1024));
 		} // end of strcmp
@@ -207,5 +205,6 @@ int main(int argc, char *argv[])
 
 
 }
+
 
 
