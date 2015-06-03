@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
 				}
 				currentSize += numfwrite;
 				percent = ((double)currentSize / fileSize) * 100;
-				if (end >= 240000)// approximately one second.
+				if (end >= 110000)// approximately one second. 240000->110000
 				{
 					end = 0;
 					printf("Transfer status : recv[%s]", fileName);
@@ -142,7 +142,7 @@ int main(int argc, char *argv[])
 
 			strcpy(fileName, msg);
 			// 2) file open
-			if ((stream = fopen(fileName, "r")) == NULL) { // argv[3]ÀÇ ÆÄÀÏÀ» open
+			if ((stream = fopen(fileName, "r")) == NULL) { // argv[3]Ã€Ã‡ Ã†Ã„Ã€ÃÃ€Â» open
 				printf("Error no file!\n");
 				exit(1);
 			} //
@@ -174,7 +174,7 @@ int main(int argc, char *argv[])
 
 				currentSize += retcode;
 				percent = ((double)currentSize / fileSize) * 100;
-				if (end >= 240000)// approximately one second.
+				if (end >= 110000)// approximately one second. 240000->110000
 				{
 					end = 0;
 					printf("Transfer status : send[%s]", fileName);
