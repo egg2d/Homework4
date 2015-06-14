@@ -25,6 +25,9 @@ int getLine(char s[], int limit)
 	}
 	return -1;
 }
+void credit20123374(){
+	printf("yeonjin designed credit part and some part of changing tcp connection \n");
+}
 
 int main(int argc, char *argv[])
 {
@@ -53,6 +56,7 @@ int main(int argc, char *argv[])
 	int currentSize = 0;
 	int second = 0;
 	int progressbar;
+	int ID=0;
 	for (;;)
 	{
 		portNum = 0;
@@ -145,7 +149,23 @@ printf("Client: creating socket\n");
 		if (retcode <= -1) {
 			printf("client: sendto failed: %d\n", errno); exit(0);
 		}
-		//
+		
+		//credit
+		if(strcmp(input, "credit") == 0)
+		{
+		
+			if(strcmp(fileName, "20133267") == 0)
+			{
+				printf("20133267 jin won designed get part and credit part.");
+			}
+			
+			ID=atoi(fileName);
+			switch(ID){
+			case 20123374:credit20123374();break;
+			}
+		}
+
+
 
 		//input (input)
 		//fileName 
@@ -369,13 +389,7 @@ printf("Client: creating socket\n");
 		}//}
 		/* close socket */
 
-		if(strcmp(input, "credit") == 0)
-		{
-			if(strcmp(fileName, "20133267") == 0)
-			{
-				printf("20133267 jin won designed get part and credit part.");
-			}
-		}
+	
 	}// end of loop
 
 	// quit 
