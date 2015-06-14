@@ -299,10 +299,10 @@ printf("Client: creating socket\n");
 			{
 				msg[0] = '\0';
 				nread = write(sockid,msg,100);
-					printf("%s\n",msg);
-				printf("%s\n",msg);
-				printf("%s\n",msg);
-				printf("%s\n",msg);
+					//printf("%s\n",msg);
+				//printf("%s\n",msg);
+				//printf("%s\n",msg);
+				//printf("%s\n",msg);
 							
 				/*  if(nread<0)
 				{
