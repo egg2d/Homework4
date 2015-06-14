@@ -25,9 +25,9 @@ int getLine(char s[], int limit)
 	}
 	return -1;
 }
-void credit20123374(){
+/*void credit20123374(){
 	printf("yeonjin designed credit part and some part of changing tcp connection \n");
-}
+}*/
 
 int main(int argc, char *argv[])
 {
@@ -156,12 +156,17 @@ printf("Client: creating socket\n");
 		
 			if(strcmp(fileName, "20133267") == 0)
 			{
-				printf("20133267 jin won designed get part and credit part.");
+				printf("20133267 jinwon designed get part, credit part and participated in writing the report.");
 			}
 			
-			ID=atoi(fileName);
-			switch(ID){
-			case 20123374:credit20123374();break;
+			else if(strcmp(fileName, "20123374") == 0)
+			{
+				printf("20123374 yeonjin designed credit part and some part of changing tcp connection.")
+			}
+			
+			else if(strcmp(fileName, "20090399") == 0)
+			{
+				printf("20090399 kyungbin designed server and many part of client.")
 			}
 		}
 
