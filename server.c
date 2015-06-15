@@ -132,6 +132,9 @@ int main(int argc, char *argv[])
 				}
 				fseek(stream, 0, SEEK_SET);
 				currentSize = 0;
+
+
+
 				while (1)
 				{
 					//nread = recvfrom(sockid, msg, 100, 0, (struct sockaddr *) &client_addr, (socklen_t*)&addrlen);
@@ -244,10 +247,10 @@ int main(int argc, char *argv[])
 				}
 				fclose(stream);
 				// end file
-				strcpy(msg, "end");
+				//strcpy(msg, "end");
 				//retcode = sendto(sockid, msg, 100, 0, (struct sockaddr *) &client_addr, sizeof(client_addr));
 				//	retcode = send(new_sock, msg, 100, 0);
-				retcode = write(new_sock, msg, 4);
+				//retcode = write(new_sock, msg, 4);
 				start = 0, end = 0;
 				printf("Transfer status : send[%s]", fileName);
 				printf("[%.2lf%%, %.2lfMB/%.2lfMB]\n", percent, (double)currentSize / (1024 * 1024), (double)fileSize / (1024 * 1024));
