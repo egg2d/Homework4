@@ -26,7 +26,7 @@ int getLine(char s[], int limit)
 	return -1;
 }
 /*void credit20123374(){
-	printf("yeonjin designed credit part and some part of changing tcp connection \n");
+printf("yeonjin designed credit part and some part of changing tcp connection \n");
 }*/
 
 int main(int argc, char *argv[])
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 	char *temp;
 	int numfread;
 	int sockid, retcode, addrlen;
-	int nread=0;
+	int nread = 0;
 	struct hostent *hostp;
 	struct sockaddr_in my_addr, server_addr, client_addr;
 	char msg[500];
@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 	int currentSize = 0;
 	int second = 0;
 	int progressbar;
-	int ID=0;
+	int ID = 0;
 	for (;;)
 	{
 		portNum = 0;
@@ -68,9 +68,9 @@ int main(int argc, char *argv[])
 	}
 	/*printf("Client: creating socket\n");
 	if ((sockid = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0) {
-		printf("Client: socket failed: %d\n", errno); exit(0);
+	printf("Client: socket failed: %d\n", errno); exit(0);
 	}
-	// bind 
+	// bind
 	printf("Client: binding my local socket\n");
 	memset((char *)&my_addr, 0, sizeof(my_addr));
 	my_addr.sin_family = AF_INET;
@@ -78,11 +78,11 @@ int main(int argc, char *argv[])
 	my_addr.sin_port = htons(portNum + 100);
 
 	if ((bind(sockid, (struct sockaddr *) &my_addr, sizeof(my_addr)) < 0)) {
-		printf("Client: bind fail: %d\n", errno); exit(0);
+	printf("Client: bind fail: %d\n", errno); exit(0);
 	}
 	if ((hostp = gethostbyname(ip)) == 0) {
-		fprintf(stderr, "%s: unknown host\n", ip);
-		exit(1);
+	fprintf(stderr, "%s: unknown host\n", ip);
+	exit(1);
 	}
 
 	printf("Client: creating addr structure for server\n");
@@ -92,8 +92,8 @@ int main(int argc, char *argv[])
 	memcpy((void *)&server_addr.sin_addr, hostp->h_addr, hostp->h_length);
 
 	server_addr.sin_port = htons((u_short)portNum);
-*/
-printf("Client: creating socket\n");
+	*/
+	printf("Client: creating socket\n");
 	if ((sockid = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0) {
 		printf("Client: socket failed: %d\n", errno); 			exit(0);
 	}
@@ -107,16 +107,16 @@ printf("Client: creating socket\n");
 	}
 
 
-	memset((void *)&server_addr,0, sizeof(server_addr));
+	memset((void *)&server_addr, 0, sizeof(server_addr));
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_addr.s_addr = inet_addr(ip);
 	memcpy((void *)&server_addr.sin_addr, hostp->h_addr, hostp->h_length);
 
 	server_addr.sin_port = htons((u_short)portNum);
 
-	if(connect(sockid,(struct sockaddr*)&server_addr,sizeof(server_addr))<0){
+	if (connect(sockid, (struct sockaddr*)&server_addr, sizeof(server_addr))<0){
 		(void)close(sockid);
-		fprintf(stderr,"connect failed.\n");
+		fprintf(stderr, "connect failed.\n");
 		exit(1);
 	}
 
@@ -149,24 +149,24 @@ printf("Client: creating socket\n");
 		if (retcode <= -1) {
 			printf("client: sendto failed: %d\n", errno); exit(0);
 		}
-		
+
 		//credit
-		if(strcmp(input, "credit") == 0)
+		if (strcmp(input, "credit") == 0)
 		{
-		
-			if(strcmp(fileName, "20133267") == 0)
+
+			if (strcmp(fileName, "20133267") == 0)
 			{
 				printf("20133267 jinwon designed get part, credit part and participated in writing the report.");
 			}
-			
-			else if(strcmp(fileName, "20123374") == 0)
+
+			else if (strcmp(fileName, "20123374") == 0)
 			{
-				printf("20123374 yeonjin designed credit part and some part of changing tcp connection.")
+				printf("20123374 yeonjin designed credit part and some part of changing tcp connection.");
 			}
-			
-			else if(strcmp(fileName, "20090399") == 0)
+
+			else if (strcmp(fileName, "20090399") == 0)
 			{
-				printf("20090399 kyungbin designed server and many part of client.")
+				printf("20090399 kyungbin designed server and many part of client.");
 			}
 		}
 
@@ -283,11 +283,11 @@ printf("Client: creating socket\n");
 				exit(1);
 			}
 			// file size receive
-			nread = recv(sockid, msg,12, 0);
+			nread = recv(sockid, msg, 12, 0);
 			printf("Server: return code from read is %d\n", nread);
 
 			if (nread >0) { printf("Server: message is: %.11s\n", msg); }
-			msg[nread]='\0';
+			msg[nread] = '\0';
 
 			fileSize = atoi(msg);
 
@@ -303,12 +303,12 @@ printf("Client: creating socket\n");
 			while (1)
 			{
 				msg[0] = '\0';
-				nread = write(sockid,msg,100);
-					//printf("%s\n",msg);
+				nread = read(sockid, msg, 100);
 				//printf("%s\n",msg);
 				//printf("%s\n",msg);
 				//printf("%s\n",msg);
-							
+				//printf("%s\n",msg);
+
 				/*  if(nread<0)
 				{
 				perror("receive fail");
@@ -356,7 +356,7 @@ printf("Client: creating socket\n");
 				{
 					printf("[********* ]\r");
 				}
-				else if (percent / 10==10)
+				else if (percent / 10 == 10)
 				{
 					printf("[**********]\r");
 				}
@@ -365,22 +365,22 @@ printf("Client: creating socket\n");
 					fclose(stream2);
 					break;
 				}
-				
+
 				//if(!strncmp(msg, "end",12))
 				//if(!strcmp(msg, "end"))
 				/*if(nread==0)
 				{
-					fclose(stream2);
-					break;
+				fclose(stream2);
+				break;
 				}*/
-				
+
 				else{
 					//	fputs(msg, stream2); //file save
 					fwrite(msg, 1, nread, stream2);
 				}
 
 			}
-			msg[nread]='\0';
+			msg[nread] = '\0';
 			printf("\nClient: Successful\n");
 		}// end of strcmp
 
@@ -394,7 +394,7 @@ printf("Client: creating socket\n");
 		}//}
 		/* close socket */
 
-	
+
 	}// end of loop
 
 	// quit 
