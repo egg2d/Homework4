@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 	//struct sockaddr_in my_addr, client_addr, server_addr;
 	struct sockaddr_in server, remote;
 	int request_sock, new_sock;
-	char msg[100];
+	char msg[1024];
 	double percent;
 	int currentSize = 0;
 	int second = 0;
@@ -38,54 +38,40 @@ int main(int argc, char *argv[])
 		printf("%s port\n", argv[0]);
 		return 0;
 	}
-	/*
-	printf("Server: creating socket\n");
-	if ((sockid = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0) {
-	printf("Server: socket error: %d\n", errno); exit(0);
-	}
-
-	printf("Server: binding my local socket\n");
-	memset((char *)&my_addr, 0, sizeof(my_addr));
-	my_addr.sin_family = AF_INET;
-	my_addr.sin_addr.s_addr = htons(INADDR_ANY);
-	my_addr.sin_port = htons(atoi(argv[1]));
-
-	if ((bind(sockid, (struct sockaddr *) &my_addr, sizeof(my_addr)) < 0)) {
-	printf("Server: bind fail: %d\n", errno); exit(0);
-	}
-
-	printf("Server: starting blocking message read\n");
 
 
-	*/
-	printf("Server: creating socket\n");
-	//socket()
-	if ((request_sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP))<0){
-		perror("socket");
-		exit(1);
-	}
 
-	//bind()
-	memset((void*)&server, 0, sizeof(server));
-	server.sin_family = AF_INET;
-	server.sin_addr.s_addr = INADDR_ANY;
-	server.sin_port = htons((u_short)atoi(argv[1]));//os\B0\A1 \C0ڵ\BF\C0\FB\C0\B8\B7\CE IP\C1ּҸ\A6 ã\BEƼ\AD ó\B8\AE\C7\D4.
 
-	if (bind(request_sock, (struct sockaddr*)&server, sizeof(server))<0){
-		perror("bind");
-		exit(1);
-	}
-
-	//listen()
-	if (listen(request_sock, SOMAXCONN)<0){
-		perror("listen");
-		exit(1);
-
-	}//os\BF\A1 \B5\EE\B7\CF
-
-	printf("I'm waiting a client.\n");
-	//accept()
 	for (;;){
+
+		printf("Server: creating socket\n");
+		//socket()
+		if ((request_sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP))<0){
+			perror("socket");
+			exit(1);
+		}
+
+		//bind()
+		memset((void*)&server, 0, sizeof(server));
+		server.sin_family = AF_INET;
+		server.sin_addr.s_addr = INADDR_ANY;
+		server.sin_port = htons((u_short)atoi(argv[1]));//os\B0\A1 \C0ڵ\BF\C0\FB\C0\B8\B7\CE IP\C1ּҸ\A6 ã\BEƼ\AD ó\B8\AE\C7\D4.
+
+		if (bind(request_sock, (struct sockaddr*)&server, sizeof(server))<0){
+			perror("bind");
+			exit(1);
+		}
+
+		//listen()
+		if (listen(request_sock, SOMAXCONN)<0){
+			perror("listen");
+			exit(1);
+
+		}	printf("I'm waiting a client.\n");
+		//accept()
+
+
+
 		addrlen = sizeof(remote);
 		new_sock = accept(request_sock, (struct sockaddr*)&remote, &addrlen);
 		if (new_sock < 0){
@@ -290,7 +276,7 @@ int main(int argc, char *argv[])
 
 			if (strcmp(input, "close") == 0)
 			{
-				printf("server end!\n");
+
 				break;
 			}
 
@@ -298,8 +284,10 @@ int main(int argc, char *argv[])
 		} // end of loop
 
 		if (strcmp(input, "close") == 0)
+		{
+			printf("server end!\n");
 			break;
-
+		}
 	}
-	close(new_sock);
+	printf("close is oK\n");
 }
