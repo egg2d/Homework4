@@ -146,17 +146,17 @@ int main(int argc, char *argv[])
 
 				if (strcmp(fileName, "20133267") == 0)
 				{
-					printf("20133267 jinwon designed get part, credit part and participated in writing the report.");
+					printf("20133267 jinwon designed get part, credit part and participated in writing the report.\n");
 				}
 
 				else if (strcmp(fileName, "20123374") == 0)
 				{
-					printf("20123374 yeonjin designed credit part and some part of changing tcp connection.");
+					printf("20123374 yeonjin designed credit part and some part of changing tcp connection.\n");
 				}
 
 				else if (strcmp(fileName, "20090399") == 0)
 				{
-					printf("20090399 kyungbin designed server and many part of client.");
+					printf("20090399 kyungbin designed server and many part of client.\n");
 				}
 			}
 
@@ -250,7 +250,6 @@ int main(int argc, char *argv[])
 					else{
 						printf("[**********]\r");
 					}
-					printf("\n");
 
 					if ((1000000 / sendrate) - abs(time2.tv_usec - time1.tv_usec) >= 0)
 					{
@@ -258,6 +257,7 @@ int main(int argc, char *argv[])
 						usleep(abs((speed * 71) / 86));
 					}
 				}
+				printf("\n");
 				fclose(stream);
 				// end file
 				strcpy(msg, "end");
