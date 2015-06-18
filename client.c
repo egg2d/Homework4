@@ -361,6 +361,7 @@ int main(int argc, char *argv[])
 			if (strcmp(input, "sendrate") == 0)
 			{
 				sendrate = atoi(fileName);
+				printf("sendrate ok!!\n");
 			}
 			if (strcmp(input, "recvrate") == 0)
 			{
@@ -368,6 +369,7 @@ int main(int argc, char *argv[])
 				retcode = send(sockid, msg, 12, 0); // msg recvrate
 
 				recvrate = atoi(fileName);
+				printf("recvrate ok!!\n");
 				sprintf(msg, "%d", recvrate);
 				retcode = send(sockid, msg, 12, 0);
 				// how much?	
